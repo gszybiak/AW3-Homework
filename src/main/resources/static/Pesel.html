@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Pesel info</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" 
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" 
+    crossorigin="anonymous">
+<style>
+    .centered-paragraph {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1 class="centered-paragraph">PESEL info</h1>
+<h2 class="centered-paragraph">Program służy do sprawdzania daty urodzenia oraz płci osoby posiadającej wprowadzony pesel</h2>
+<h2 class="centered-paragraph">Poprawną datę urodzenia zwraca tylko dla osób urodzonych przed 2000 rokiem</h2>
+<form class="pure-form">
+    <fieldset class="centered-paragraph">
+        <input id="pesel" type="number" placeholder="Pesel" />
+        <button id="btnShowData" type="button" class="pure-button pure-button-primary">Pokaż dane</button>
+    </fieldset>
+</form>
+<div id="result" class="centered-paragraph" style="list-style-position: inside;"/>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const pesel = document.getElementById('pesel');
+		const result = document.getElementById('result');
+        document.getElementById('btnShowData').addEventListener('click', (event) => {
+            event.preventDefault();
+            if (pesel.value.length < 11) {
+                alert('Pesel musi składać się z 11 cyfr');
+            } else {
+                const year = pesel.value.substr(0, 2);
+				const month = pesel.value.substr(2, 2);
+				const day = pesel.value.substr(4, 2);
+				const sexInt = pesel.value.substr(9,1);
+				const birthDate = `19${year}.${month}.${day}`;
+				let sexString;
+				if(sexInt % 2 === 0){
+					sexString = 'Kobieta';
+				}
+				else{
+					sexString = 'Mężczyzna';
+				}
+				const ul = document.createElement('ul');
+				const li1 = document.createElement('li');
+				li1.textContent = `Data urodzenia: ${birthDate}`;
+				ul.appendChild(li1);
+
+				const li2 = document.createElement('li');
+				li2.textContent = `Płeć: ${sexString}`;
+				ul.appendChild(li2);
+
+				result.innerHTML = '';
+	
+				result.appendChild(ul);
+				//result.textContent = `Data urodzenia: ${birthDate}` + ` Jest to: ${sexString}`;
+            }
+        });
+    });
+</script>
+</body>
+</html>

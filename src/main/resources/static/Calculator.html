@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" 
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" 
+    crossorigin="anonymous">
+    <style>
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .calculator button {
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+        }
+		.result {
+            height: 50px;
+            font-size: 18px;
+        }
+		.space {
+            width: 10px; /* Szerokość pustego elementu */
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+		<div class="pure-u-1 pure-u-md-1-3">
+        <input type="text" id="display" readonly class="result">
+		</div>
+		<span class="space"></span> 
+        <br>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('7')">7</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('8')">8</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('9')">9</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('+')">+</button>
+        <br>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('4')">4</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('5')">5</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('6')">6</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('-')">-</button>
+        <br>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('1')">1</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('2')">2</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('3')">3</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('*')">*</button>
+        <br>
+        <button class="pure-button pure-button-primary" onclick="clearDisplay()">C</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('0')">0</button>
+        <button class="pure-button pure-button-primary" onclick="calculateResult()">=</button>
+        <button class="pure-button pure-button-primary" onclick="addToDisplay('/')">/</button>
+    </div>
+
+    <script>
+        function addToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            const displayValue = document.getElementById('display').value;
+            const result = eval(displayValue);
+            document.getElementById('display').value = result;
+        }
+    </script>
+</body>
+</html>
