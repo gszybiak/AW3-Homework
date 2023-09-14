@@ -20,14 +20,10 @@ public class SendMail {
                        @RequestParam String password, @RequestParam String email) {
 
         Mail mail = new Mail(name, surname, date, town, password, email);
-        try {
-            if (SendEmail.sendEmail(mail))
-                return "Mail został wysłany.";
-            else
-                return "Błąd wysłania maila";
-        }catch(Exception e){
+        if(SendEmail.sendEmail(mail))
+            return "Mail został wysłany.";
+        else
             return "Błąd wysłania maila";
-        }
     }
 
 }
