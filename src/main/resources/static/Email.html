@@ -18,19 +18,40 @@
 <h1 class="centered-paragraph">Wyślij email</h1>
 <h2 class="centered-paragraph">Uzupełnij dane, które chcesz przesłać</h2>
 <h3 class="centered-paragraph">Pamiętaj o podaniu poprawnego adresu email</h3>
-<form class="pure-form">
+<form id="dataToSend" class="pure-form">
     <fieldset class="pure-group">
-        <input type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Imię" />
-        <input type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Nazwisko" />
-		<label for="date">Data urodzenia:</label>
-		<input type="date" class="pure-input-1-2" style="margin-bottom: 10px;" />
-		<input type="password" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Hasło" />
-		<input type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Miejscowość" />
+        <input id="name" type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Imię" />
+        <input id="surname" type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Nazwisko" />
+		<input id="date" type="date" class="pure-input-1-2" style="margin-bottom: 10px;" />
+        <input id="town" type="text" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Miejscowość" />
+		<input id="password" type="password" class="pure-input-1-2" style="margin-bottom: 10px;" placeholder="Hasło" />
     </fieldset>
     <fieldset class="pure-group">
-        <input type="email" class="pure-input-1-2" placeholder="Email" />
+        <input id="email" type="email" class="pure-input-1-2" placeholder="Email" />
     </fieldset>
-    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Wyślij mail</button>
+    <button id="btn" class="pure-button pure-input-1-2 pure-button-primary">Wyślij mail</button>
+    <div id="result" class="centered-paragraph"></div>
 </form>
+<script>
+    const form = document.getElementById('dataToSend');
+    const div = document.getElementById('result');
+    document.getElementById('btn').addEventListener('click', (event) => {
+    event.preventDefault();
+    const formObj = {
+        name: document.getElementById('name').value,
+        surname: document.getElementById('surname').value,
+        date: document.getElementById('date').value,
+        town: document.getElementById('town').value,
+        password: document.getElementById('password').value,
+        email: document.getElementById('email').value
+        };
+
+        fetch('http://localhost:8080/api?' + new URLSearchParams(formObj))
+        .then(response => response.text())
+        .then((text) => {
+        div.innerHTML = `<h1>${text}</h1>`;
+        });
+    });
+</script>
 </body>
 </html>
